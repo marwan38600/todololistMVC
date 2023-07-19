@@ -2,24 +2,27 @@
 class Model
 {
     public $host = "localhost";
-    public $dbname;
+    public $dbname = "projet_todos";
     public $username = "root";
     public $password = "";
-    public $dbase;
+    public PDO $dbase;
 
-    public function __construct($host, $dbname, $username, $password)
+    public function __construct()
     {
-        $this->host = $host;
-        $this->dbname = $dbname;
-        $this->username = $username;
-        $this->password = $password;
-        $this->dbase = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
+        $this->dbase = new PDO("mysql:host=$this->host;dbname=$this->dbname", $this->username, $this->password);
     }
 
 
     public function addOne($task)
     {
         $sql = "INSERT INTO todos (title) VALUES (:task)";
+        $statement = $this->dbase->prepare($sql);
+        $statement->bindParam(':task', $task);
+        $statement->execute();
+    }
+    public function deleteOne($task)
+    {
+        $sql = "DELETE FROM todos where id = :id";
         $statement = $this->dbase->prepare($sql);
         $statement->bindParam(':task', $task);
         $statement->execute();

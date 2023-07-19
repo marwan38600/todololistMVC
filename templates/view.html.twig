@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>To Do App</title>
+	</head>
+	<body>
+		<section id="form">
+			<form action="insertintodb.php" method="GET">
+				<label for="add">Ajouter</label>
+				<input type="text" name="add" id="add">
+				<input type="submit" value="Valider">
+			</form>
+			<div class="tasks">
+				{% for value in list %}
+					<form action="deleteindb.php" method="GET">
+						<label for="delete">Supprimer</label>
+						<input type="submit" name="delete" id="delete">
+						<input type="submit" value="Valider">
+					</form>
+					<p>{{value.title}}</p>
+					<button>Supprimer</button>
+				{% endfor %}
+			</div>
+		</section>
+	</body>
+</html>
